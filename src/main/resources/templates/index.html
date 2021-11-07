@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../static/css/style2.css">
+<link rel="stylesheet" href="../static/css/main.css">
+<head>
+	<meta charset="UTF-8">
+	<title>모두의 레시피</title>
+
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script th:src="@{../static/js/main.js}"></script>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<main id="moma_main_wrap">
+	<div data-role="slider" data-width="1200" data-height="350" id="slidewrap">
+		<div class="container">
+			<div class="item">
+			</div>
+			<div class="item">
+			</div>
+			<div class="item">
+			</div>
+			<div class="item">
+			</div>
+		</div>
+	</div>
+	<button id="left-button"></button>
+	<button id="right-button"></button>
+
+	<div id="main_content_wrap">
+
+		<div class="main_recom_recipe_wrap">
+			<h2 class="mian_content_title">추천 레시피 <button class="main_content_but"><img alt="plus" src="../static/img/plus.png" style="width: 25px; height: 25px;"> </button> </h2>
+			<div id="main_recom_reci_content_wrap">
+				<div class="main_recom_recipe mrr_frist"  th:each="recipelist: ${recipelist}">
+					<a class="video" th:href="@{'/recipedetail/'+${recipelist.recipekey}}"><iframe style="pointer-events:none;" width="250" height="150" th:src="${recipelist.recipelink}"  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></a>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="all_meter-wrap">
+			<h2 class="mian_content_title">오늘의 재료 <button class="main_content_but" th:onclick="'location.href=\''+ @{/meterialMain} + '\''"><img alt="plus" src="../static/img/plus.png" style="width: 25px; height: 25px;"></button> </h2>
+			<div class="cut_side">
+				<ul class="meter_list">
+					<li class="meter_item"th:each="addMater : ${addMater}">
+						<a  th:href="@{'/meter_detail/'+${addMater.materialKey}}">
+							<div class="meter_size">
+								<div class="meter_img_wrap">
+									<div class="meter_img">
+										<img th:alt="${addMater.materialImg}" th:src="@{/materialImg/} + ${addMater.materialImg}">
+									</div>
+									<div class="meter_cart">
+										<form action="/saveCart" method="post">
+											<input type="hidden" name="cartMaterial" th:value = "${addMater.materialTitle}">
+											<input type="hidden" name="cartPrice" th:value = "${addMater.materialPrice}">
+											<input type="hidden" name="cartCapacity" th:value = "${addMater.materialCapacity}">
+											<input type="hidden" name="cartImage" th:value = ${addMater.materialImg}>
+											<input type="hidden" name="cartCount" value = "1">
+											<input type="hidden" name="username" th:value = "${session.user?.username}">
+											<button type="submit" class="meter_cart_but"><img alt="장바구니" src="../static/img/cart.png"> </button>
+										</form>
+									</div>
+								</div>
+								<div class="meter_text">
+									<div class="meter_full">
+										<div class="meter_title"><strong th:text="${addMater.materialTitle}"></strong></div>
+										<div class="meter_price"><span th:text="${addMater.materialPrice}"></span>원</div>
+										<div class="meter_g">(<span th:text="${addMater.materialCapacity}"></span>g 기준)</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</main>
+<footer>
+	<div th:replace="fragments/footer::footer"></div>
+</footer>
+</body>
+</html>

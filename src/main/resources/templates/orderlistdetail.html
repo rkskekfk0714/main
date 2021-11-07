@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="stylesheet" href="../static/css/style2.css">
+	<meta charset="UTF-8">
+	<title>orderlistdetail</title>
+	<style type="text/css">
+    @font-face {
+       font-family: 'Cafe24Simplehae';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Simplehae.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+   }
+   @font-face {
+       font-family: 'Cafe24Dangdanghae';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/Cafe24Dangdanghae.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+   }
+        .okbutton a:hover{
+            text-decoration:none;
+            color : black;
+        }
+        .okbutton a:link{
+
+            text-decoration:none;
+            color : black;
+
+        }
+        .okbutton a:visited{
+
+            text-decoration:none;
+            color : black;}
+
+        .informtd1{
+            font-size:30px;
+            font-family: 'Cafe24Simplehae';
+        }
+        .informtd2{
+          font-size:30px;
+          font-family: 'cafe24Simplehae';
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div id="wrap" style="position:relative; padding-bottom:70px;min-height:100%; width:1200px; ">
+
+
+	<form th:action="@{'/orderlistdetail/' + ${order.orderkey}}" method="get">
+
+		<div class="receiverinform">
+			<h1
+					style="font-family: 'NanumSquareRound'; padding-top: 30px; border-bottom: solid 2px black;"
+			>받는사람 정보</h1>
+			<table style="padding-top: 20px;">
+				<tr >
+					<td class="informtd1">받는사람</td>
+					<td class="informtd2" th:text="${order.orderrec}"></td>
+				</tr>
+				<tr>
+					<td class="informtd1">연락처</td>
+					<td class="informtd2" th:text="${order.orderphone}"></td>
+				</tr>
+				<tr>
+					<td class="informtd1">받는주소</td>
+					<td class="informtd2" th:text="${order.orderaddress}"></td>
+				</tr>
+				<tr>
+					<td class="informtd1">배송요청사항</td>
+					<td class="informtd2" th:text="${order.orderrequest}"></td>
+				</tr>
+				<tr>
+					<td class="informtd1">상품 가격</td>
+					<td class="informtd2" th:text="${order.orderprice}"></td>
+				</tr>
+
+			</table>
+		</div>
+		<div class="okbutton" style="text-align:center; ">
+
+			<a  th:href="@{/orderlist}">확인</a>
+		</div>
+	</form>
+
+
+
+</div>
+</div>
+</div>
+
+</body>
+</html>
